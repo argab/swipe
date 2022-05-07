@@ -1,0 +1,8 @@
+<svg
+        class="svg-icon"
+        style="width: 1em; height: 1em;vertical-align: middle;fill: orange;overflow: hidden;"
+        viewBox="0 0 1024 1024"
+        version="1.1" xmlns="http://www.w3.org/2000/svg"
+>
+    <path d="M396 896h344c31.4 0 57.2-19.2 68.4-46.8l114.2-270.8c3.4-8.8 5.2-18 5.2-28v-77.2c0-42.2-34-89.2-75.6-89.2H613.8l36-163 1.2-12c0-15.8-6.4-30.2-16.6-40.6L594 128 342 382.6c-13.6 13.8-22 33-22 54.2v384c0 42.2 34.4 75.2 76 75.2zM96 448h128v448H96z"/>
+</svg>
