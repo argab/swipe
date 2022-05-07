@@ -31,8 +31,10 @@ swipe.validate() && swipeEl.addListeners()
 
 ```
 
-####Note that in order to make an element movable on touch,
-####You must apply absolute positioning or fixed CSS styling to it.
+```
+Note that in order to make an element movable on touch,
+You must apply absolute positioning or fixed CSS styling to it.
+```
 
 ## Integration with Vue.js
 
@@ -157,7 +159,8 @@ export default {
 
 
 
-##Try out another powerful package from the author:
+
+## Try out another powerful package from the author:
 
 **[Request Service](https://www.npmjs.com/package/@argab/request-service)** - This Library can totally organize working with REST API in your whole project.
 
