@@ -6,6 +6,7 @@ export class SwipeService {
     #diff = {x: 0, y: 0}
     #left
     #top
+    #dir = {up: false, down: false, left: false, right: false}
 
     get el () {
         return this.#el
@@ -25,6 +26,10 @@ export class SwipeService {
 
     get diff () {
         return {...this.#diff}
+    }
+
+    get dir () {
+        return {...this.#dir}
     }
 
     constructor (el, params = {
@@ -51,6 +56,7 @@ export class SwipeService {
     assignParams (params, x, y) {
         return {
             ...params,
+            dir: {...this.#dir},
             diff: {...this.#diff},
             threshold: this.getThreshold({x, y})
         }
@@ -98,8 +104,8 @@ export class SwipeService {
             this.#top = top
         }
 
-        this.#diff.x = x - this.#left
-        this.#diff.y = y - this.#top
+        this.#diff.x = x > this.#left ? x - this.#left : this.#left - x
+        this.#diff.y = y > this.#top ? y - this.#top : this.#top - y
 
         this.#params.onStart && this.#params.onStart(this.assignParams(params, x, y))
     }
@@ -118,21 +124,34 @@ export class SwipeService {
 
     onSwipeMove (params) {
 
-        const {x, y} = params
+        const {x, y, dir} = params
         const start = this.getPos()
         const pos = this.getPos(x, y)
 
-        if (this.#params.onMove && this.#params.onMove(this.assignParams(params, x, y)) === false) return false
+        this.#dir = dir
 
-        if ((this.#params.direction === 'left' && pos.x >= start.x-1) || (this.#params.direction === 'right' && pos.x <= this.#left+1)) {
-            this.#el.style.left = start.x - pos.width + 'px'
+        if (this.#params.onMove && this.#params.onMove(this.assignParams(params, x, y)) === false) {
             return false
         }
-        if ((this.#params.direction === 'up' && pos.y >= start.y-1) || (this.#params.direction === 'down' && pos.y <= start.y+1)) {
-            this.#el.style.top = start.y - pos.height + 'px'
+
+        if (this.#params.direction === 'left' && dir.right && pos.x >= start.x-1) {
             return false
         }
+
+        if (this.#params.direction === 'right' && dir.left && pos.x - pos.width <= start.x - pos.width+1) {
+            return false
+        }
+
+        if (this.#params.direction === 'up' && dir.down && pos.y >= start.y-1) {
+            return false
+        }
+
+        if (this.#params.direction === 'down' && dir.up && pos.y - pos.height <= start.y - pos.height+1) {
+            return false
+        }
+
         if (['left', 'right'].includes(this.#params.direction)) this.#el.style.left = x - this.#diff.x + 'px'
+
         if (['up', 'down'].includes(this.#params.direction)) this.#el.style.top = y - this.#diff.y + 'px'
     }
 

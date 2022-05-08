@@ -35,6 +35,8 @@ var _left = /*#__PURE__*/new WeakMap();
 
 var _top = /*#__PURE__*/new WeakMap();
 
+var _dir = /*#__PURE__*/new WeakMap();
+
 var SwipeService = /*#__PURE__*/function () {
   function SwipeService(el) {
     var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
@@ -75,6 +77,16 @@ var SwipeService = /*#__PURE__*/function () {
       value: void 0
     });
 
+    _classPrivateFieldInitSpec(this, _dir, {
+      writable: true,
+      value: {
+        up: false,
+        down: false,
+        left: false,
+        right: false
+      }
+    });
+
     (0, _classPrivateFieldSet2["default"])(this, _el, el);
     (0, _classPrivateFieldSet2["default"])(this, _params, params);
   }
@@ -105,6 +117,11 @@ var SwipeService = /*#__PURE__*/function () {
       return _objectSpread({}, (0, _classPrivateFieldGet4["default"])(this, _diff));
     }
   }, {
+    key: "dir",
+    get: function get() {
+      return _objectSpread({}, (0, _classPrivateFieldGet4["default"])(this, _dir));
+    }
+  }, {
     key: "validate",
     value: function validate() {
       if ((0, _classPrivateFieldGet4["default"])(this, _params).direction && !['up', 'down', 'left', 'right'].includes((0, _classPrivateFieldGet4["default"])(this, _params).direction)) {
@@ -120,6 +137,7 @@ var SwipeService = /*#__PURE__*/function () {
     key: "assignParams",
     value: function assignParams(params, x, y) {
       return _objectSpread(_objectSpread({}, params), {}, {
+        dir: _objectSpread({}, (0, _classPrivateFieldGet4["default"])(this, _dir)),
         diff: _objectSpread({}, (0, _classPrivateFieldGet4["default"])(this, _diff)),
         threshold: this.getThreshold({
           x: x,
@@ -181,8 +199,8 @@ var SwipeService = /*#__PURE__*/function () {
         (0, _classPrivateFieldSet2["default"])(this, _top, top);
       }
 
-      (0, _classPrivateFieldGet4["default"])(this, _diff).x = x - (0, _classPrivateFieldGet4["default"])(this, _left);
-      (0, _classPrivateFieldGet4["default"])(this, _diff).y = y - (0, _classPrivateFieldGet4["default"])(this, _top);
+      (0, _classPrivateFieldGet4["default"])(this, _diff).x = x > (0, _classPrivateFieldGet4["default"])(this, _left) ? x - (0, _classPrivateFieldGet4["default"])(this, _left) : (0, _classPrivateFieldGet4["default"])(this, _left) - x;
+      (0, _classPrivateFieldGet4["default"])(this, _diff).y = y > (0, _classPrivateFieldGet4["default"])(this, _top) ? y - (0, _classPrivateFieldGet4["default"])(this, _top) : (0, _classPrivateFieldGet4["default"])(this, _top) - y;
       (0, _classPrivateFieldGet4["default"])(this, _params).onStart && (0, _classPrivateFieldGet4["default"])(this, _params).onStart(this.assignParams(params, x, y));
     }
   }, {
@@ -202,18 +220,29 @@ var SwipeService = /*#__PURE__*/function () {
     key: "onSwipeMove",
     value: function onSwipeMove(params) {
       var x = params.x,
-          y = params.y;
+          y = params.y,
+          dir = params.dir;
       var start = this.getPos();
       var pos = this.getPos(x, y);
-      if ((0, _classPrivateFieldGet4["default"])(this, _params).onMove && (0, _classPrivateFieldGet4["default"])(this, _params).onMove(this.assignParams(params, x, y)) === false) return false;
+      (0, _classPrivateFieldSet2["default"])(this, _dir, dir);
 
-      if ((0, _classPrivateFieldGet4["default"])(this, _params).direction === 'left' && pos.x >= start.x - 1 || (0, _classPrivateFieldGet4["default"])(this, _params).direction === 'right' && pos.x <= (0, _classPrivateFieldGet4["default"])(this, _left) + 1) {
-        (0, _classPrivateFieldGet4["default"])(this, _el).style.left = start.x - pos.width + 'px';
+      if ((0, _classPrivateFieldGet4["default"])(this, _params).onMove && (0, _classPrivateFieldGet4["default"])(this, _params).onMove(this.assignParams(params, x, y)) === false) {
         return false;
       }
 
-      if ((0, _classPrivateFieldGet4["default"])(this, _params).direction === 'up' && pos.y >= start.y - 1 || (0, _classPrivateFieldGet4["default"])(this, _params).direction === 'down' && pos.y <= start.y + 1) {
-        (0, _classPrivateFieldGet4["default"])(this, _el).style.top = start.y - pos.height + 'px';
+      if ((0, _classPrivateFieldGet4["default"])(this, _params).direction === 'left' && dir.right && pos.x >= start.x - 1) {
+        return false;
+      }
+
+      if ((0, _classPrivateFieldGet4["default"])(this, _params).direction === 'right' && dir.left && pos.x - pos.width <= start.x - pos.width + 1) {
+        return false;
+      }
+
+      if ((0, _classPrivateFieldGet4["default"])(this, _params).direction === 'up' && dir.down && pos.y >= start.y - 1) {
+        return false;
+      }
+
+      if ((0, _classPrivateFieldGet4["default"])(this, _params).direction === 'down' && dir.up && pos.y - pos.height <= start.y - pos.height + 1) {
         return false;
       }
 

@@ -132,7 +132,9 @@ export default {
 
 ## API
 
+
 ### SwipeService's properties
+
 
 | Name           | Data Type | Arguments                         | Return               | Default | Description                                                                             |
 |----------------|-----------|-----------------------------------|----------------------|---------|-----------------------------------------------------------------------------------------|
@@ -143,7 +145,10 @@ export default {
 | `onEnd`        | Function  | Object                            | undefined            |         | On touchend event handler                                                               |
 | `onMove`       | Function  | Object                            | false&#124;undefined |         | On touchmove event handler. `Returning FALSE forces embedded handler to stop execution` |
 
+
+
 ### Event Handler's (onStart, onEnd, onMove) arguments
+
 
 | Argument       | Data Type | Example                                           | Description                                                                                                      |
 |----------------|-----------|---------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
@@ -159,6 +164,7 @@ export default {
 
 
 
+---
 
 ## Try out another powerful package from the author:
 
