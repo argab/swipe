@@ -3,6 +3,8 @@
 <img align="center" src="stable.svg" height="20">
 </div>
 
+---
+
 The Library provides handlers for touchstart, touchend, and touchmove event listeners that apply to DOM elements.
 
 Create Sidebars, Dropdowns, and any kind of UI element that is controlled by a touch event.
