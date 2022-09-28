@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="114.25" height="28" role="img"
+     aria-label="STABLE: 3.1">
+    <title>STABLE: 3.0</title>
+    <g shape-rendering="crispEdges">
+        <rect width="69.5" height="28" fill="#555"/>
+        <rect x="69.5" width="44.75" height="28" fill="#3a96b5"/>
+    </g>
+    <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif"
+       text-rendering="geometricPrecision" font-size="100">
+        <text transform="scale(.1)" x="347.5" y="175" textLength="455" fill="#fff">STABLE</text>
+        <text transform="scale(.1)" x="918.75" y="175" textLength="207.5" fill="#fff" font-weight="bold">3.0</text>
+    </g>
+</svg>

@@ -1,6 +1,6 @@
 {
   "name": "@argab/swipe",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Makes DOM elements controlled on swipe and touch.",
   "repository": {
     "type": "git",

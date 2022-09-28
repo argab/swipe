@@ -1,4 +1,7 @@
-# Swipe Library
+<div align="center">
+<h1>Swipe Library</h1>
+<img align="center" src="stable.svg" height="20">
+</div>
 
 The Library provides handlers for touchstart, touchend, and touchmove event listeners that apply to DOM elements.
 
